@@ -1,0 +1,57 @@
+Onyx is a tool for know miRNA expression levels analysis. 
+
+
+#----------------GENERAL PROPERTIES--------------
+
+
+#Name of the project
+PROJECT_NAME=mcf7 
+
+#Samples name separated by a semicolon.
+SAMPLES_NAME=SRR326279;SRR326280;SRR326281;SRR326282 
+
+#Experimental Condition. Must be in order respect the samples. Separated by a semicolon.
+GROUPS=C;C;K;K	
+
+#Type YES or NO if this is an match_pair experiment.
+PAIR_SWITCH=YES 
+
+#The pairs must be in order respect the samples. Separated by a semicolon.
+PAIRS=cyto;total;cyto;total 
+
+#*Beta. Create different subproccess to allow a faster analysis. YES or NO.
+OPTIMIZATION=YES
+
+
+#----------------PATHWAYS OF DATA AND TOOLS--------------------
+
+#FOLDERS PATHS
+PROJECT_PATH=/home/debian/Documents/mirna/mcf7
+RAW_DATA=/home/debian/Documents/mirna/mcf7/raw
+REF_PATH=/home/debian/Documents/ref/bow2
+
+#REFERENCIES
+GENOME_BOWTIE_NAME=hg19
+miRBase_gff3_NAME=hsa_20.gff3
+
+
+#--------TOOLS--SET HERE THE TOOLS PATH ON YOUR COMPUTER--------
+
+FASTQC=fastqc
+CUTADAPT=cutadapt
+#BOWTIE=/home2/calros/tools/bowtie-1.1.1/bowtie
+BOWTIE=bowtie
+HTseq=htseq-count
+R=R
+
+#--------PARAMETERS
+
+CUTADAPT_PAR=-b AATCTCGTATGCCGTCTTCTGCTTGG -m 17 -O 3 -q 20
+#BOWTIE_PAR=-p 4 -S -q -n 1 -e 80 -l 30 -a -m 5 --best --strata 
+BOWTIE_PAR=-n 0 -l 15 --best
+HTseq_PAR>--mode=intersection-nonempty --stranded=no --type=miRNA --idattr=Name
+
+
+
+
+
