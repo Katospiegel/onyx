@@ -75,7 +75,7 @@ plotMDS(expression.dglist, main=paste("MDS plot"))
 dev.off()
 
 # Design matrix for paired groups
-design <- model.matrix(~expression.dglist$samples$group)
+design <- model.matrix(~pairs+expression.dglist$samples$group)
 
 rownames(design) <- rownames(expression.dglist$samples)
 colnames(design)[length(colnames(design))] <- expname

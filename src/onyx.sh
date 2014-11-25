@@ -39,7 +39,6 @@ else
 	mkdir -p $Pro/result/count/
 	mkdir -p $Pro/result/map/
 	mkdir -p $Pro/result/expression/
-	mkdir -p $Pro/result/temp
 
 	mkdir -p $Pro/doc/
 	mkdir -p $Pro/doc/prefastqc/
@@ -53,7 +52,6 @@ else
 	COUNT=$Pro/result/count/
 	EXPRESSION=$Pro/result/expression/
 	LOG=$Pro/doc/log
-	TEMP=$Pro/result/temp
 
 	#Tools Pathways
 	FASTQC=$( cat $Config | grep -w '^FASTQC' | cut -d '=' -f2)
@@ -82,7 +80,6 @@ else
 	NPROC=$( nproc )
 	WPROC=$( expr $NPROC / 2 )
 	PROC_SAM=$( expr $WPROC / $NUM_SAMPLES )
-	SAM_PROC=$( expr $NUM_SAMPLES / $WPROC )
 
 #--------------------------------------PIPELINE-----------------------------------#
 
@@ -97,11 +94,6 @@ else
 '$PRO_NAME' data' >> $LOG/$NAME.txt 2>&1
 
 	done
-
-#------------> SUBGROUPS CREATION
-
-	
-
 
 #------------> PRE_FASTQC
 
@@ -268,7 +260,7 @@ else
 
 	else
 
-		Rscript $Pro/bin/differential_ex_nonpair.R $EXPRESSION/raw_expression.csv $EXPRESSION $SAMPLES $GROUP  $PRO_NAMEE
+		Rscript $Pro/bin/differential_ex_nonpair.R $EXPRESSION/raw_expression.csv $EXPRESSION $SAMPLES $GROUP  $PRO_NAME
 
 	fi
 
@@ -331,6 +323,13 @@ else
 		rm $LOG/$name.csv
 	done
 		
+
+#-----------> HTML CREATION
+
+	cp $Pro/bin/MainDocument.html $Pro/MainDocument.html
+
+	#perl $Pro/bin/html_report.pl $config $Pro/MainDocument.html $LOG/final_summary.csv $EXPRESSION/dif_exp_sum.xls
+	#cp onyx_pipeline.jpg $Pro/onyx_pipeline.jpg
 
 #-----------> ENDING
 
